@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=9;IE=8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control"
+          content="no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0">
+    <meta http-equiv="Expires" content="0">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title></title>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        .btn{
+            width:1024px;
+            margin:20px auto;
+            text-align:right;
+        }
+        .refresh{
+            background:#84d4dd;
+            border:1px solid #58b9c3;
+            color:#666;
+            padding:8px 25px;
+            cursor: pointer;
+            outline: none;
+        }
+        .refresh:hover{
+            background:#58b9c3;
+        }
+        .table
+        {
+            width:1024px;
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+            color:#333;
+        }
+        .table caption{
+
+            font-size:16px;
+            font-weight:bold;
+            border: 1px solid #cad9ea;
+            height:42px;
+            line-height:42px;
+            background:#ebf9fb;
+            padding-left:24px;
+        }
+        table td, table th
+        {
+            font-size:14px;
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+        table thead th
+        {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+        table tr:nth-child(odd)
+        {
+            background: #fff;
+        }
+        table tr:nth-child(even)
+        {
+            background: #F5FAFA;
+        }
+    </style>
+    <script src="/js/jquery-1.8.2.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="btn">
+    <label class="refresh" id="labelmsg">正在加载，请稍候！！！</label>
+    <button class="refresh" onclick="refreshbut();">刷新</button>
+</div>
+<table  class="table" id="tabledaily">
+    <caption>日志提交情况表</caption>
+    <thead>
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            用户名
+        </th>
+        <th>
+            提交月份
+        </th>
+        <th>
+            应提交次数
+        </th>
+        <th>
+            实际提交次数
+        </th>
+        <th>
+            未提交次数
+        </th>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>
+
+<script type="text/javascript">
+
+
+
+    var msg="请求中，请稍候！！！";
+
+    function raccountMonth() {
+        //===================未分页,展示所有数据===============================
+        var url ="beformonthdailys";
+        //=====向服务器发送post请求
+        $.get(url,function (data) {
+            debugger;
+            //解析服务器端传过来的全部数据
+            //============================向表格中展示商品信息
+            var products = eval(data);
+            //遍历数据
+            for (var i = 0; i < products.length; i++) {
+                //遍历每一行的数据
+                var protd =$("<tr><td>"+(i+1)+"</td><td>"+products[i]["empName"]+"</td><td>"+products[i]["beforMonth"]+"</td><td>"+products[i]["yjsl"]+"</td><td>"+products[i]["ytjsl"]+"</td><td>"+products[i]["wtjsl"]+"</td></tr>");
+                // 并添加到表格中,添加数据到表格中
+                $("#tabledaily").append(protd);
+            }
+        },"json")
+    }
+
+    function refreshbut(){
+
+      window.location.reload();
+    }
+
+    //页面加载时,向服务器发送请求,接收全部的商品数据
+    $(function () {
+        $('#labelmsg').val("正在加载，请稍候！！！");
+        //===================未分页,展示所有数据===============================
+        var url ="beformonthdailys";
+        //=====向服务器发送post请求
+        $.get(url,function (data) {
+            $('#labelmsg').html("加载完成！！！");
+            debugger;
+            //解析服务器端传过来的全部数据
+            //============================向表格中展示商品信息
+            var products = eval(data);
+            //遍历数据
+            for (var i = 0; i < products.length; i++) {
+                //遍历每一行的数据
+                var protd =$("<tr><td>"+(i+1)+"</td><td>"+products[i]["empName"]+"</td><td>"+products[i]["beforMonth"]+"</td><td>"+products[i]["yjsl"]+"</td><td>"+products[i]["ytjsl"]+"</td><td>"+products[i]["wtjsl"]+"</td></tr>");
+                // 并添加到表格中,添加数据到表格中
+                $("#tabledaily").append(protd);
+            }
+        },"json")
+    })
+</script>
+
+
+

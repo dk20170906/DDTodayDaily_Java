@@ -1,0 +1,20 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dingding
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+properconfig:
+  corpId: ding2934d04ec35dc64d35c2f4657eb6378f
+  corpSecret: uwFBjpo0arxzBVtrEtjNXmryOcnHIQ6x1m4NIZgOBm68PnUcDuEecKgizIS1rb-l
+  accessTokenUrl: https://oapi.dingtalk.com/gettoken
+  departmentalListUrl: https://oapi.dingtalk.com/department/list
+  dailyDaysBefor: 45
+
